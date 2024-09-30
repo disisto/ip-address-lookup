@@ -138,20 +138,17 @@ The API allows to integrate the results of the IP Address Lookup results on a di
 
 Error handling:
 - Invalid input: Every input that can\'t be identified as IPv4 address will trigger an error message.
-- Reserved IPs: Address Blocks that matches with the following [list](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml)<sup>[1]</sup> will trigger an error message.
-- Rate Limit: IP addresses of clients that make more than 250 requests/second<sup>[2]</sup> get blocked for 60 minutes.
+- Reserved IPs: Address Blocks that matches with the following [list](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml) will trigger an error message.
+- Rate Limit: 250 requests/second<sup>[1]</sup>
 
 ## 7.) Limitations and caveats
-
-### IPv4
-- <sup>[1]</sup>Known bug: Not all reserved IPs based on the following [list](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml) are correctly detected.
 
 ### IPv6
 - IPv6 detection is not supported.
 - IPv6 lookup support is considered, but not planned.
 
 ### API rate limit
-- <sup>[2]</sup>The rate calculation is based on laboratory values ​​and is adapted to the real conditions under constant monitoring.
+- <sup>[1]</sup>We will reduce without notice if capacities become necessary.
 
 ---
 All mentioned trademarks are the property of their respective owners.
