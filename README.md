@@ -134,7 +134,7 @@ The API allows to integrate the results of the IP Address Lookup results on a di
 | JSON   | 0 | `https://api.troubleshooting.tools/lookup/ip/json/` `{ipv4_address}` | IP Address, PTR Record |
 | JSON   | 0 | `https://api.troubleshooting.tools/lookup/ip/json/lvl0/` `{ipv4_address}` | IP Address, PTR Record |
 | JSON   | 1 | `https://api.troubleshooting.tools/lookup/ip/json/lvl1/` `{ipv4_address}` | IP Address, PTR Record, Country code/name, Region name, City Name, Latitude, Longitude |
-| JSON   | 2 | `https://api.troubleshooting.tools/lookup/ip/json/lvl2/` `{ipv4_address}` | IP Address, PTR Record, Country code/name, Region name, City Name, Latitude, Longitude, ISP, Network Range, CIDR, Name, Handle, Autonomous System (AS) |
+| JSON   | 2 | `https://api.troubleshooting.tools/lookup/ip/json/lvl2/` `{ipv4_address}` | IP Address, PTR Record, Country code/name, Region name, City Name, Latitude, Longitude, ISP, RIR, Network Range, CIDR, Name, Handle, Autonomous System (AS) |
 
 #### Plaintext Example:
 
@@ -395,6 +395,7 @@ The API allows to integrate the results of the IP Address Lookup results on a di
       "regionName": "Nairobi City"
     },
     "registry_data": {
+      "rir": "AFRINIC",
       "netRange": "102.216.68.0 - 102.216.69.255",
       "cidr": "102.216.68.0/23",
       "name": "not provided",
@@ -445,6 +446,7 @@ The API allows to integrate the results of the IP Address Lookup results on a di
       "regionName": "California"
     },
     "registry_data": {
+      "rir": "ARIN",
       "netRange": "8.8.4.0 - 8.8.4.255",
       "cidr": "8.8.4.0/24",
       "name": "GOGL",
