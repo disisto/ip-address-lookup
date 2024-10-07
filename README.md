@@ -134,21 +134,377 @@ The API allows to integrate the results of the IP Address Lookup results on a di
 | JSON   | 0 | `https://api.troubleshooting.tools/lookup/ip/json/` `{ipv4_address}` | IP Address, PTR Record |
 | JSON   | 0 | `https://api.troubleshooting.tools/lookup/ip/json/lvl0/` `{ipv4_address}` | IP Address, PTR Record |
 | JSON   | 1 | `https://api.troubleshooting.tools/lookup/ip/json/lvl1/` `{ipv4_address}` | IP Address, PTR Record, Country code/name, Region name, City Name, Latitude, Longitude |
-| JSON   | 2 | `https://api.troubleshooting.tools/lookup/ip/json/lvl2/` `{ipv4_address}` | IP Address, PTR Record, Country code/name, Region name, City Name, Latitude, Longitude, RIR, Network Range, CIDR, Name, Handle, Autonomous System (AS) |
+| JSON   | 2 | `https://api.troubleshooting.tools/lookup/ip/json/lvl2/` `{ipv4_address}` | IP Address, PTR Record, Country code/name, Region name, City Name, Latitude, Longitude, ISP, Network Range, CIDR, Name, Handle, Autonomous System (AS) |
+
+#### Plaintext Example:
+
+##### Endpoint: "Automatic discovery"
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/
+  ```
+
+##### Example Response:
+
+  ```BASH
+  102.216.69.156
+  ```
+
+---
+
+##### Endpoint: "IP Address Lookup"
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/{ipaddress}
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/8.8.4.4
+  ```
+
+##### Example Response:
+
+  ```BASH
+  8.8.4.4
+  ```
+
+---
+
+##### Example Response, when IP Address is invalid:
+
+  ```BASH
+  Invalid IP address
+  ```
+
+##### Example Response, when IP address is not public and therefore reserved:
+
+  ```BASH
+  Reserved IP address
+  ```
+
+---
+
+#### JSON Example:
+
+##### Endpoint: "Automatic discovery"
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/json/
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/json/
+  ```
+
+##### Example Response:
+
+  ```BASH
+  {
+    "ip": "102.216.69.156",
+    "invalid": false,
+    "reserved": false,
+    "ptr_record": "No PTR record found"
+  }
+  ```
+
+##### Endpoint: "IP Address Lookup"
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/json/{ipaddress}
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/json/8.8.4.4
+  ```
+
+##### Example Response:
+
+  ```JSON
+  {
+    "ip": "8.8.4.4",
+    "invalid": false,
+    "reserved": false,
+    "ptr_record": "dns.google"
+  }
+  ```
+
+##### Example Response, when IP Address is invalid:
+
+  ```JSON
+  {
+    "ip": "8.8.4.256",
+    "invalid": true,
+    "reserved": false
+  }
+  ```
+
+##### Example Response, when IP address is not public and therefore reserved:
+
+  ```JSON
+  {
+    "ip": "192.168.1.1",
+    "invalid": false,
+    "reserved": true,
+    "additional_context": {
+      "address_block": "192.168.0.0/16",
+      "name": "Private-Use",
+      "rfc": "RFC1918",
+      "allocation_date": "1996-02"
+    }
+  }
+  ```
+---
+
+##### Endpoint: "Automatic discovery" Level 1
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/json/lvl1/
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/json/lvl1/
+  ```
+
+##### Example Response:
+
+  ```BASH
+  {
+    "ip": "102.216.69.156",
+    "invalid": false,
+    "reserved": false,
+    "ptr_record": "No PTR record found",
+    "location_data": {
+      "ipVersion": 4,
+      "ipAddress": "102.216.69.156",
+      "latitude": -1.28333,
+      "longitude": 36.816669,
+      "countryName": "Kenya",
+      "countryCode": "KE",
+      "timeZone": "+03:00",
+      "zipCode": "-",
+      "cityName": "Nairobi",
+      "regionName": "Nairobi City"
+    }
+  }
+  ```
+
+##### Endpoint: "IP Address Lookup"
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/json/lvl1/{ipaddress}
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/json/lvl1/8.8.4.4
+  ```
+
+##### Example Response:
+
+  ```JSON
+  {
+    "ip": "8.8.4.4",
+    "invalid": false,
+    "reserved": false,
+    "ptr_record": "dns.google",
+    "location_data": {
+      "ipVersion": 4,
+      "ipAddress": "8.8.4.4",
+      "latitude": 37.386051,
+      "longitude": -122.083847,
+      "countryName": "United States of America",
+      "countryCode": "US",
+      "timeZone": "-07:00",
+      "zipCode": "94035",
+      "cityName": "Mountain View",
+      "regionName": "California"
+    }
+  }
+  ```
+
+##### Example Response, when IP Address is invalid:
+
+  ```JSON
+  {
+    "ip": "8.8.4.256",
+    "invalid": true,
+    "reserved": false
+  }
+  ```
+
+##### Example Response, when IP address is not public and therefore reserved:
+
+  ```JSON
+  {
+    "ip": "192.168.1.1",
+    "invalid": false,
+    "reserved": true,
+    "additional_context": {
+      "address_block": "192.168.0.0/16",
+      "name": "Private-Use",
+      "rfc": "RFC1918",
+      "allocation_date": "1996-02"
+    }
+  }
+  ```
+---
+
+##### Endpoint: "Automatic discovery" Level 2
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/json/lvl2/
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/json/lvl2/
+  ```
+
+##### Example Response:
+
+  ```JSON
+  {
+    "ip": "102.216.69.156",
+    "invalid": false,
+    "reserved": false,
+    "ptr_record": "No PTR record found",
+    "location_data": {
+      "ipVersion": 4,
+      "ipAddress": "102.216.69.156",
+      "latitude": -1.28333,
+      "longitude": 36.816669,
+      "countryName": "Kenya",
+      "countryCode": "KE",
+      "timeZone": "+03:00",
+      "zipCode": "-",
+      "cityName": "Nairobi",
+      "regionName": "Nairobi City"
+    },
+    "registry_data": {
+      "netRange": "102.216.68.0 - 102.216.69.255",
+      "cidr": "102.216.68.0/23",
+      "name": "not provided",
+      "handle": "102.216.68.0 - 102.216.69.255",
+      "parent": "102.216.68.0 - 102.216.71.255",
+      "netType": "ASSIGNED PA",
+      "originAS": "not provided",
+      "lastChanged": "Thu, 23 Nov 2023 06:40:00 GMT",
+      "remark": "not provided",
+      "isp": "not provided",
+      "country": "KE",
+      "address": "Airtel Networks Kenya Limited, Nairobi, Other",
+      "source": "https://search.arin.net/rdap/?query=102.216.69.156"
+    }
+}
+  ```
+
+##### Endpoint: "IP Address Lookup"
+
+  ``` BASH
+  https://api.troubleshooting.tools/lookup/ip/json/lvl2/{ipaddress}
+  ```
+
+##### Example Request:
+
+  ``` BASH
+  curl -X GET https://api.troubleshooting.tools/lookup/ip/json/lvl2/8.8.4.4
+  ```
+
+##### Example Response:
+
+  ```JSON
+  {
+    "ip": "8.8.4.4",
+    "invalid": false,
+    "reserved": false,
+    "ptr_record": "dns.google",
+    "location_data": {
+      "ipVersion": 4,
+      "ipAddress": "8.8.4.4",
+      "latitude": 37.386051,
+      "longitude": -122.083847,
+      "countryName": "United States of America",
+      "countryCode": "US",
+      "timeZone": "-07:00",
+      "zipCode": "94035",
+      "cityName": "Mountain View",
+      "regionName": "California"
+    },
+    "registry_data": {
+      "netRange": "8.8.4.0 - 8.8.4.255",
+      "cidr": "8.8.4.0/24",
+      "name": "GOGL",
+      "handle": "NET-8-8-4-0-2",
+      "parent": "NET-8-0-0-0-0",
+      "netType": "DIRECT ALLOCATION",
+      "originAS": "not provided",
+      "lastChanged": "Thu, 28 Dec 2023 22:24:56 GMT",
+      "remark": "not provided",
+      "isp": "Google LLC",
+      "country": "not provided",
+      "address": "1600 Amphitheatre Parkway, Mountain View, CA, 94043, United States",
+      "source": "https://search.arin.net/rdap/?query=8.8.4.4"
+    }
+  }
+  ```
+
+##### Example Response, when IP Address is invalid:
+
+  ```JSON
+  {
+    "ip": "8.8.4.256",
+    "invalid": true,
+    "reserved": false
+  }
+  ```
+
+##### Example Response, when IP address is not public and therefore reserved:
+
+  ```JSON
+  {
+    "ip": "192.168.1.1",
+    "invalid": false,
+    "reserved": true,
+    "additional_context": {
+      "address_block": "192.168.0.0/16",
+      "name": "Private-Use",
+      "rfc": "RFC1918",
+      "allocation_date": "1996-02"
+    }
+  }
+  ```
+
 
 Error handling:
-- Invalid input: Every input that can\'t be identified as IPv4 address will trigger an error message.
-- Reserved IPs: Address Blocks that matches with the following [list](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml) will trigger an error message.
-- Rate Limit: 250 requests/second<sup>[1]</sup>
+* ```Invalid IP address```
+  * Every input that can\'t be identified as IPv4 address will trigger an error message.
+* ```Reserved IP address```
+  * Address Blocks that matches with the following [list](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml) will trigger an error message.
+* ```HTTP 429: Too Many Requests```
+  * Rate limit: 250 requests per second.
+  * This limit may be adjusted without prior notice based on server resource demand.
 
 ## 7.) Limitations and caveats
 
 ### IPv6
 - IPv6 detection is not supported.
 - IPv6 lookup support is considered, but not planned.
-
-### API rate limit
-- <sup>[1]</sup>We will reduce without notice if capacities become necessary.
 
 ---
 All mentioned trademarks are the property of their respective owners.
