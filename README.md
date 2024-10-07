@@ -176,8 +176,6 @@ The API allows to integrate the results of the IP Address Lookup results on a di
   8.8.4.4
   ```
 
----
-
 ##### Example Response, when IP Address is invalid:
 
   ```BASH
