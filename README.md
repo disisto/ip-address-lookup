@@ -119,7 +119,7 @@ To integrate the search bar into a different web page a few line are needed. The
 
 ```html
 <form method="post" action="https://troubleshooting.tools/lookup/ip/">
-  <input type="text" name="IPADDRESS" placeholder="">
+  <input type="text" name="ip" placeholder="">
   <input type="submit" value="&#128269;">
 </form>
 ```
